@@ -19,9 +19,11 @@ function generatePassword() {
   var wantsLowercase = true;
   var wantsUppercase = true;
   var wantsNumbers = true;
-  var wantsSpecialCharacters = false;
+  var wantsSpecialCharacters = true;
 
-  console.log(passwordLength);
+  var generateBtn = document.querySelector(#generate);
+
+  function writePassword() {
 
   if (wantsLowercase) {
     characterSet = characterSet.concat(lowercase)
@@ -48,13 +50,6 @@ function generatePassword() {
   return password;
 }
 
-
-var pass = generatePassword();
-
-var textBox = document.querySelector('textarea');
-
-textBox.value = pass;
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
@@ -65,4 +60,8 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", function() {
+  password = '';
+  writePassword();
+  passwordText.value = password;
+});
