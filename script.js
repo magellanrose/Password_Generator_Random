@@ -21,7 +21,7 @@ function generatePassword() {
   var wantsNumbers = true;
   var wantsSpecialCharacters = true;
 
-  var generateBtn = document.querySelector(#generate);
+  var generateBtn = document.querySelector("#generate");
 
   function writePassword() {
 
@@ -40,7 +40,7 @@ function generatePassword() {
 
   if (wantsSpecialCharacters) {
     characterSet = characterSet.concat(specialCharacters)
-  }
+  }}
 
 
   for (var count = 0; count < passwordLength; count++) {
@@ -52,7 +52,7 @@ function generatePassword() {
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = writePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
