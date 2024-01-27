@@ -1,4 +1,3 @@
-// Assignment Code
 var generateBtn = document.querySelector("#generate");
 
 console.log(generateBtn);
@@ -9,42 +8,48 @@ var uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
 
 var specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '|', '\\', ';', ':', "'", '"', ',', '.', '/', '<', '>', '?'];
 
-var characterSet = [];
-var password = '';
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function generatePassword() {
-  var passwordLength = +prompt('Please provide a passowrd length');
+  var passwordLength = parseInt(prompt('Please provide a number for a password length between 8-128 characters.'));
+  if (passwordLength < 8 || passwordLength > 128 ) {
+    alert('must enter a valid length')
+    return generatePassword();
+  }
+  if (isNaN(passwordLength)) {
+    alert('must enter a number')
+    return generatePassword();
+  }
+  var includeLowercase = confirm('Do you want to include lowercase?');
+  if(!includeLowercase && !includeUppercase && !includeSpecial && !includeNumbers) {
+    alert('must choose atleast one character type')
+    return generatePassword();
+  }
+  var includeUppercase = confirm('Do you want to include uppercase?');
+  var includeSpecial = confirm('Do you want to special characters?');
+  var includeNumbers = confirm('Do you want to include numbers?');
+  var password = '';
+  var characterSet = [];
 
-  var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
-  var wantsLowercase = true;
-  var wantsUppercase = true;
-  var wantsNumbers = true;
-  var wantsSpecialCharacters = true;
-
-  var generateBtn = document.querySelector("#generate");
-
-  function writePassword() {
-
-  if (wantsLowercase) {
-    characterSet = characterSet.concat(lowercase)
+  if (includeLowercase) {
+    characterSet = characterSet.concat(lowercase);
   }
 
-  if (wantsUppercase) {
-    characterSet = characterSet.concat(uppercase)
+  if (includeUppercase) {
+    characterSet = characterSet.concat(uppercase);
   }
 
-  if (wantsNumbers) {
-    characterSet = characterSet.concat(numbers)
+  if (includeNumbers) {
+    characterSet = characterSet.concat(numbers);
   }
 
-
-  if (wantsSpecialCharacters) {
-    characterSet = characterSet.concat(specialCharacters)
-  }}
-
+  if (includeSpecial) {
+    characterSet = characterSet.concat(specialCharacters);
+  }
 
   for (var count = 0; count < passwordLength; count++) {
-    var ranIndex = Math.floor(Math.random() * characterSet.length); password += characterSet[ranIndex];
+    var ranIndex = Math.floor(Math.random() * characterSet.length);
+    password += characterSet[ranIndex];
   }
 
   return password;
@@ -52,16 +57,12 @@ function generatePassword() {
 
 // Write password to the #password input
 function writePassword() {
-  var password = writePassword();
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", function() {
-  password = '';
-  writePassword();
-  passwordText.value = password;
-});
+generateBtn.addEventListener("click", writePassword);
+
